@@ -8,12 +8,19 @@ def get_sever_actions():
          []
     )
     routes = reduce(
-        lambda value, items: value + [getattr(item, 'routes', None)],
+        lambda value, item: value + [getattr(item, 'routes', None)],
         applications,
         []
     )
     return reduce(
-        lambda value, items: value + getattr(item, 'actionmapping', None),
-        rotes,
+        lambda value, item: value + getattr(item, 'actionmapping', None),
+        routes,
         []
     )
+def resolver (action):
+    actionmapping = {
+        item.get('action'):item.get('controlers')
+        for item in get_sever_actions()
+        if item
+    }
+    return actionmapping.get(action)

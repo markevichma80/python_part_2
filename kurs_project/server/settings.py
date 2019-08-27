@@ -1,4 +1,4 @@
 INSTALLING_APPS = [
     'echo',
-    'severdate'
+    'serverdate'
 ]

@@ -4,7 +4,8 @@ from argparse import ArgumentParser
 import json
 from datetime import datetime
 from protocol import valid_request, make_response
-from echo.controlers import echo_controlers
+from resolvers import resolver
+
 
 
 config = {
@@ -18,6 +19,7 @@ parser.add_argument(
     help='Sets config file path'
 )
 args = parser.parse_args()
+print(args)
 
 if args.config:
     with open(args.config) as file:
@@ -40,9 +42,10 @@ try:
         )
         if valid_request(request):
             action = request.get('action')
-            if action == 'echo':
+            control = resolver(action)
+            if control:
                 try:
-                    response = echo_controlers(request)
+                    response = control(request)
                     print(f'Client host {client_host}, host {client_port}, send {request}')
                 except Exception as arr:
                     response = make_response(

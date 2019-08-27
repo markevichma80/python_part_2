@@ -7,8 +7,8 @@ def valid_request(request):
 
 def make_response(request, code, data=None):
     return {
-        'data': request.get('data'),
+        'action': request.get('action'),
         'time': datetime.now().timestamp(),
-        'code': code,
+        'code': code,   
         'data': data
     }
